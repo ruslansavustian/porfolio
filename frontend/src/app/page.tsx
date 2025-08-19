@@ -1,19 +1,19 @@
 "use client";
 
-import { useAuth } from "@/contexts/AuthContext";
+import { useApp } from "@/contexts/AppProvider";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
 
 export default function Home() {
-  const { user, loading } = useAuth();
+  const { currentUser, loading } = useApp();
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && user) {
+    if (!loading && currentUser) {
       router.push("/dashboard");
     }
-  }, [user, loading, router]);
+  }, [currentUser, loading, router]);
 
   if (loading) {
     return (

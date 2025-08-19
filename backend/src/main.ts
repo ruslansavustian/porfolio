@@ -1,9 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { webcrypto } from 'crypto';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-// Polyfill for global crypto in Node < 18.19
-// Ensures libraries that expect globalThis.crypto work correctly
 if (typeof globalThis.crypto === 'undefined') {
   Object.defineProperty(globalThis, 'crypto', {
     value: webcrypto,
@@ -14,21 +13,27 @@ if (typeof globalThis.crypto === 'undefined') {
 }
 
 async function bootstrap() {
-  // Import AppModule only after setting crypto polyfill
   // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports
   const { AppModule } = require('./app.module');
   const app = await NestFactory.create(AppModule);
-
-  // Enable CORS for frontend communication
+  const config = new DocumentBuilder()
+    .setTitle('Portfolio API')
+    .setDescription('Portfolio application API documentation')
+    .setVersion('1.0')
+    .addBearerAuth() // For JWT authentication
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api/docs', app, document);
   app.enableCors({
     origin: [
-      'http://localhost:3001', // Local development
-      process.env.FRONTEND_URL, // Production frontend URL
-      /\.vercel\.app$/, // Allow all Vercel domains
+      'http://localhost:3001',
+      'http://127.0.0.1:3001',
+      process.env.FRONTEND_URL,
+      /\.vercel\.app$/,
     ].filter(Boolean),
-    credentials: true,
+    credentials: false,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
     preflightContinue: false,
     optionsSuccessStatus: 204,
   });
@@ -40,7 +45,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
-
+  app.setGlobalPrefix('api');
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap().catch((err) =>
