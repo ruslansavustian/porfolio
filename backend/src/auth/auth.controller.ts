@@ -27,7 +27,8 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  async getProfile(@Request() req) {
-    return this.authService.getProfile(req.user.id);
+  async getProfile(@Request() req: { user: { id: string } }) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    return this.authService.getProfile(Number(req.user.id));
   }
 }
