@@ -16,6 +16,7 @@ async function bootstrap() {
   // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports
   const { AppModule } = require('./app.module');
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
   const config = new DocumentBuilder()
     .setTitle('Portfolio API')
     .setDescription('Portfolio application API documentation')
@@ -45,7 +46,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  app.setGlobalPrefix('api');
+
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap().catch((err) =>
