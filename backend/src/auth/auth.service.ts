@@ -72,6 +72,7 @@ export class AuthService {
   async getProfile(userId: number) {
     const user = await this.userService.findById(userId);
     if (!user) {
+      console.log('User not found');
       throw new UnauthorizedException('User not found');
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

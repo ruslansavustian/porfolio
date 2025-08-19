@@ -1,8 +1,22 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import { AppModule } from './app.module';
+import { webcrypto } from 'crypto';
+
+// Polyfill for global crypto in Node < 18.19
+// Ensures libraries that expect globalThis.crypto work correctly
+if (typeof globalThis.crypto === 'undefined') {
+  Object.defineProperty(globalThis, 'crypto', {
+    value: webcrypto,
+    configurable: true,
+    enumerable: true,
+    writable: true,
+  });
+}
 
 async function bootstrap() {
+  // Import AppModule only after setting crypto polyfill
+  // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports
+  const { AppModule } = require('./app.module');
   const app = await NestFactory.create(AppModule);
 
   // Enable CORS for frontend communication

@@ -11,7 +11,7 @@ import { useAuth } from "@/contexts/AuthContext";
 const registerSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  password: z.string().min(4, "Password must be at least 4 characters"),
 });
 
 type RegisterFormData = z.infer<typeof registerSchema>;
