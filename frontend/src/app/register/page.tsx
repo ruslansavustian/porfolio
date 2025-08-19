@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useAuth } from "@/contexts/AuthContext";
+import { useApp } from "@/contexts/AppProvider";
 
 const registerSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -18,7 +18,7 @@ type RegisterFormData = z.infer<typeof registerSchema>;
 
 export default function RegisterPage() {
   const [error, setError] = useState("");
-  const { register: registerUser } = useAuth();
+  const { register: registerUser } = useApp();
   const router = useRouter();
 
   const {

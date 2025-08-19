@@ -6,21 +6,21 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
+import { Candidate } from './candidate/candidate.entity';
+import { CandidateModule } from './candidate/candidate.module';
 
 @Module({
   imports: [
-    // Load environment variables from .env
     ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
 
-    // Database connection using ConfigService
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
         url: config.get<string>('DATABASE_URL'),
-        entities: [User],
-        synchronize: true, // Only for development!
+        entities: [User, Candidate],
+        synchronize: true,
         ssl:
           process.env.NODE_ENV === 'production'
             ? { rejectUnauthorized: false }
@@ -29,6 +29,7 @@ import { User } from './user/user.entity';
     }),
     AuthModule,
     UserModule,
+    CandidateModule,
   ],
   controllers: [AppController],
   providers: [AppService],

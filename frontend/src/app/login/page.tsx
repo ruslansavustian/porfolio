@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useAuth } from "@/contexts/AuthContext";
+import { useApp } from "@/contexts/AppProvider";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -17,7 +17,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const [error, setError] = useState("");
-  const { login } = useAuth();
+  const { login } = useApp();
   const router = useRouter();
 
   const {

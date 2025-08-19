@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "@/contexts/AuthContext";
+import { AppProvider } from "@/contexts/AppProvider";
 
 export const metadata: Metadata = {
   title: "Portfolio App",
@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body cz-shortcut-listen="true">
-        <AuthProvider>{children}</AuthProvider>
+        <AppProvider>{children}</AppProvider>
       </body>
     </html>
   );

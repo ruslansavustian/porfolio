@@ -7,33 +7,34 @@ import {
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 
-@Entity('users')
-export class User {
+@Entity('candidates')
+export class Candidate {
   @ApiProperty({ description: 'Unique identifier', type: Number })
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty({ description: 'User full name', type: String, maxLength: 100 })
+  @ApiProperty({ description: 'First name', type: String, maxLength: 100 })
   @Column({ length: 100 })
-  name: string;
+  firstName: string;
+
+  @ApiProperty({ description: 'Last name', type: String, maxLength: 100 })
+  @Column({ length: 100 })
+  lastName: string;
+
+  @ApiProperty({ description: 'Birth date', type: String, format: 'date' })
+  @Column({ type: 'date' })
+  birthDate: Date;
+
+  @ApiProperty({ description: 'Work experience description', type: String })
+  @Column({ type: 'text' })
+  workExperience: string;
 
   @ApiProperty({
-    description: 'User email address',
+    description: 'Technical skills and competencies',
     type: String,
-    format: 'email',
-    maxLength: 255,
   })
-  @Column({ unique: true, length: 255 })
-  email: string;
-
-  @ApiProperty({
-    description: 'Hashed password',
-    type: String,
-    writeOnly: true,
-    maxLength: 255,
-  })
-  @Column({ length: 255 })
-  password: string;
+  @Column({ type: 'text' })
+  skills: string;
 
   @ApiProperty({
     description: 'Creation timestamp',
