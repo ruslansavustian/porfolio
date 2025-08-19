@@ -19,7 +19,7 @@ export class AuthService {
     const { name, email, password } = registerDto;
 
     // Check if user already exists
-    const existingUser = this.userService.findByEmail(email);
+    const existingUser = await this.userService.findByEmail(email);
     if (existingUser) {
       throw new ConflictException('User with this email already exists');
     }
@@ -43,7 +43,7 @@ export class AuthService {
     const { email, password } = loginDto;
 
     // Find user by email
-    const user = this.userService.findByEmail(email);
+    const user = await this.userService.findByEmail(email);
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
@@ -69,8 +69,8 @@ export class AuthService {
     };
   }
 
-  getProfile(userId: number) {
-    const user = this.userService.findById(userId);
+  async getProfile(userId: number) {
+    const user = await this.userService.findById(userId);
     if (!user) {
       throw new UnauthorizedException('User not found');
     }
