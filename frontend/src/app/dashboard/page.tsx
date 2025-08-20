@@ -2,10 +2,11 @@
 
 import { useApp } from "@/contexts/AppProvider";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MyButton } from "../components/ui-components/my-button";
 import { Candidate } from "@/types";
 import { CandidateCard } from "../components/ui-components/candidate-card";
+import { CreateCandidateModal } from "../components/modals/create-candidate-modal";
 
 export default function DashboardPage() {
   const {
@@ -19,7 +20,8 @@ export default function DashboardPage() {
     deleteCandidate,
   } = useApp();
   const router = useRouter();
-
+  const [isCreateCandidateModalOpen, setIsCreateCandidateModalOpen] =
+    useState(false);
   useEffect(() => {
     if (!loading && !currentUser) {
       router.push("/login");
@@ -34,23 +36,18 @@ export default function DashboardPage() {
     );
   }
 
-  const handlerCreateCandidate = () => {
-    const data = {
-      firstName: "John",
-      lastName: "Doe",
-      birthDate: "1990-01-01",
-      workExperience: "5years",
-      skills: "React, Node.js, TypeScript",
-    };
-    createCandidate(data);
-  };
-
   if (!currentUser) {
     return null;
   }
-
+  const handleAddCandidate = () => {
+    setIsCreateCandidateModalOpen(true);
+  };
   return (
     <div className="min-h-screen bg-gray-50 px-[10%]">
+      <CreateCandidateModal
+        isOpen={isCreateCandidateModalOpen}
+        onClose={() => setIsCreateCandidateModalOpen(false)}
+      />
       <nav className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
@@ -84,7 +81,7 @@ export default function DashboardPage() {
                 </h3>
                 <MyButton
                   title="+ Add Candidate"
-                  onClick={handlerCreateCandidate}
+                  onClick={handleAddCandidate}
                 />
               </div>
 

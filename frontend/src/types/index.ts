@@ -25,14 +25,14 @@ export interface AuthResponse {
 
 // Candidate types
 export interface Candidate {
-  id: number;
+  id?: number;
   firstName: string;
   lastName: string;
   birthDate: string;
   workExperience: string;
   skills: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface CreateCandidateDto {

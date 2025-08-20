@@ -1,12 +1,9 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { AppProvider } from "@/contexts/AppProvider";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Portfolio App",
-  description: "Full-stack app with Next.js and NestJS",
-};
+import { HeroUIProvider } from "@heroui/react";
+import "./globals.css";
+
+import { AppProvider } from "@/contexts/AppProvider";
 
 export default function RootLayout({
   children,
@@ -16,7 +13,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body cz-shortcut-listen="true">
-        <AppProvider>{children}</AppProvider>
+        <HeroUIProvider>
+          <AppProvider>{children}</AppProvider>
+        </HeroUIProvider>
       </body>
     </html>
   );
