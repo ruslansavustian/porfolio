@@ -22,31 +22,35 @@ export const CandidateCard = ({ candidate }: { candidate: Candidate }) => {
         </h4>
         <div className="flex space-x-1">
           <button
-            className="text-blue-600 hover:text-blue-800 text-sm"
+            className="text-blue-600 hover:text-blue-800 text-sm hover:cursor-pointer"
             onClick={() => console.log("Edit candidate:", candidate.id)}
           >
             Edit
           </button>
-          <button
-            className="text-red-600 hover:text-red-800 text-sm"
-            onClick={handleDelete}
-          >
-            Delete
-          </button>
+          {candidate.id && (
+            <button
+              className="text-red-600 hover:text-red-800 text-sm hover:cursor-pointer"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+          )}
         </div>
       </div>
       <p className="text-sm text-gray-600 mb-2">
-        <span className="font-medium">Дата рождения:</span>{" "}
+        <span className="font-medium">Date of birth:</span>{" "}
         {new Date(candidate.birthDate).toLocaleDateString("ru-RU")}
       </p>
       <p className="text-sm text-gray-600 mb-2">
-        <span className="font-medium">Опыт:</span> {candidate.workExperience}
+        <span className="font-medium">Work experience:</span>{" "}
+        {candidate.workExperience}
       </p>
       <p className="text-sm text-gray-600">
-        <span className="font-medium">Навыки:</span> {candidate.skills}
+        <span className="font-medium">Skills:</span> {candidate.skills}
       </p>
       <p className="text-xs text-gray-400 mt-2">
-        Создан: {new Date(candidate.createdAt).toLocaleDateString("ru-RU")}
+        Created:{" "}
+        {new Date(candidate.createdAt || "").toLocaleDateString("ru-RU")}
       </p>
     </div>
   );

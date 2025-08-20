@@ -13,7 +13,6 @@ if (typeof globalThis.crypto === 'undefined') {
 }
 
 async function bootstrap() {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-require-imports
   const { AppModule } = require('./app.module');
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
@@ -24,7 +23,7 @@ async function bootstrap() {
     .addBearerAuth() // For JWT authentication
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document);
+  SwaggerModule.setup('/api/docs', app, document);
   app.enableCors({
     origin: [
       'http://localhost:3001',
