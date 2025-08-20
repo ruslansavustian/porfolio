@@ -12,12 +12,18 @@ porfolio/
 
 ## Features
 
-- 🔐 User authentication (login/register)
-- 🎨 Modern UI with Tailwind CSS
-- 📱 Responsive design
-- 🔒 JWT-based authentication
-- ✅ Form validation with Zod
-- 🚀 TypeScript throughout
+- 🔐 **User Authentication** - Complete login/register system
+- 👤 **User Dashboard** - Protected dashboard with candidate management
+- 📋 **Candidate Management** - Create, view, and manage candidates
+- 🎨 **Modern UI** - Beautiful components with HeroUI and Tailwind CSS
+- 📱 **Responsive Design** - Works seamlessly on all devices
+- 🔒 **JWT Authentication** - Secure token-based authentication
+- ✅ **Form Validation** - Client and server-side validation with Zod
+- 🚀 **TypeScript** - Full type safety across frontend and backend
+- 🎭 **Smooth Animations** - Enhanced UX with Framer Motion
+- 📚 **API Documentation** - Auto-generated Swagger documentation
+- 🗄️ **Database Integration** - PostgreSQL with TypeORM
+- 🧪 **Testing Ready** - Jest testing framework configured
 
 ## Quick Start
 
@@ -66,6 +72,18 @@ porfolio/
 - `POST /auth/login` - User login
 - `GET /auth/profile` - Get user profile (protected)
 
+### Candidates
+
+- `GET /candidates` - Get all candidates (protected)
+- `POST /candidates` - Create new candidate (protected)
+- `GET /candidates/:id` - Get candidate by ID (protected)
+- `PUT /candidates/:id` - Update candidate (protected)
+- `DELETE /candidates/:id` - Delete candidate (protected)
+
+### API Documentation
+
+- `GET /api` - Swagger API documentation (available in development)
+
 ## Environment Variables
 
 ### Backend (.env)
@@ -105,21 +123,39 @@ npm run start        # Start production server
 
 ### Frontend
 
-- **Next.js 15** - React framework with App Router
-- **TypeScript** - Type safety
-- **Tailwind CSS** - Styling
-- **React Hook Form** - Form handling
-- **Zod** - Schema validation
-- **Axios** - HTTP client
+- **Next.js 15.4.6** - React framework with App Router
+- **React 19.1.0** - UI library
+- **TypeScript 5** - Type safety
+- **Tailwind CSS 4.1.12** - Utility-first CSS framework
+- **HeroUI 2.8.2** - Modern React component library
+- **Framer Motion 12.23.12** - Animations and transitions
+- **React Hook Form 7.62.0** - Form handling and validation
+- **Zod 4.0.17** - Schema validation
+- **Axios 1.11.0** - HTTP client for API requests
+- **Lucide React 0.540.0** - Icon library
 
 ### Backend
 
-- **NestJS** - Node.js framework
-- **TypeScript** - Type safety
-- **JWT** - Authentication
-- **Passport** - Authentication middleware
-- **bcrypt** - Password hashing
-- **class-validator** - DTO validation
+- **NestJS 11.0.1** - Node.js framework with decorators
+- **TypeScript 5.7.3** - Type safety
+- **PostgreSQL** - Primary database
+- **TypeORM 0.3.25** - ORM for database operations
+- **JWT** - JSON Web Token authentication
+- **Passport 0.7.0** - Authentication middleware
+- **Passport JWT 4.0.1** - JWT strategy for Passport
+- **bcrypt 6.0.0** - Password hashing
+- **class-validator 0.14.2** - DTO validation
+- **class-transformer 0.5.1** - Object transformation
+- **Swagger 11.2.0** - API documentation
+- **Jest 30.0.0** - Testing framework
+
+### Development Tools
+
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
+- **PostCSS** - CSS processing
+- **ts-node** - TypeScript execution
+- **Nodemon** - Development server auto-reload
 
 ## Project Features
 
@@ -138,24 +174,3 @@ npm run start        # Start production server
 - Protected API routes
 - Input validation on both frontend and backend
 - CORS configuration for frontend-backend communication
-
-## Next Steps
-
-- [ ] Add database integration (PostgreSQL/MongoDB)
-- [ ] Implement user profile management
-- [ ] Add password reset functionality
-- [ ] Set up deployment configurations
-- [ ] Add unit and integration tests
-- [ ] Implement refresh token mechanism
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License.
